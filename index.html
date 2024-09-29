@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Online HTML Viewer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/monokai.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,15 +16,12 @@
             padding: 20px;
             background-color: #f0f0f0;
         }
-        textarea {
-            width: 97%;
+        .CodeMirror {
+            width: 100%;
             height: 200px;
             margin-bottom: 20px;
-            padding: 10px;
-            font-size: 16px;
             border: 1px solid #ccc;
             border-radius: 4px;
-            resize: none;
         }
         iframe {
             width: 100%;
@@ -43,16 +42,29 @@
         <iframe id="htmlOutput"></iframe>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/xml/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/css/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/htmlmixed/htmlmixed.min.js"></script>
     <script>
         const htmlInput = document.getElementById('htmlInput');
         const htmlOutput = document.getElementById('htmlOutput');
 
-        htmlInput.addEventListener('input', () => {
-            const htmlContent = htmlInput.value;
+        const editor = CodeMirror.fromTextArea(htmlInput, {
+            mode: 'htmlmixed',
+            theme: 'monokai',
+            lineNumbers: true,
+            autoCloseTags: true,
+            matchBrackets: true
+        });
+
+        editor.on('change', () => {
+            const htmlContent = editor.getValue();
             htmlOutput.srcdoc = htmlContent;
         });
 
-        htmlInput.dispatchEvent(new Event('input'));
+        editor.setValue('<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>Online HTML Viewer</title>\n</head>\n<body>\n    <h1>Hello, World!</h1>\n</body>\n</html>');
     </script>
 </body>
 </html>
