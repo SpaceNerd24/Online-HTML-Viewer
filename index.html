@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -5,41 +6,56 @@
     <title>Online HTML Viewer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/monokai.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/idea.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
+            height: 100vh;
             margin: 0;
-            padding: 20px;
-            background-color: #f0f0f0;
+            background-color: #1e1e1e;
+            color: #ffffff;
+        }
+        .container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            background-color: #2e2e2e;
+            border: 1px solid #444;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .editor, .preview {
+            flex: 1;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .editor {
+            border-right: 1px solid #444;
         }
         .CodeMirror {
             width: 100%;
-            height: 400px; /* Increased height */
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            height: 100%;
+            background-color: #1e1e1e;
+            color: #ffffff;
         }
         iframe {
             width: 100%;
-            height: 600px; /* Increased height */
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .container {
-            width: 80%;
-            max-width: 1000px; /* Increased max-width */
+            height: 100%;
+            border: none;
+            background-color: #ffffff;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Online HTML Viewer</h1>
-        <textarea id="htmlInput" placeholder="Enter your HTML code here..."></textarea>
-        <iframe id="htmlOutput"></iframe>
+        <div class="editor">
+            <textarea id="htmlInput" placeholder="Enter your HTML code here..."></textarea>
+        </div>
+        <div class="preview">
+            <iframe id="htmlOutput"></iframe>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
@@ -53,7 +69,7 @@
 
         const editor = CodeMirror.fromTextArea(htmlInput, {
             mode: 'htmlmixed',
-            theme: 'idea',
+            theme: 'monokai',
             lineNumbers: true,
             autoCloseTags: true,
             matchBrackets: true
