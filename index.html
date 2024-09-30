@@ -6,6 +6,7 @@
     <title>Online HTML Viewer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/monokai.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/duotone-dark.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -69,7 +70,7 @@
 
         const editor = CodeMirror.fromTextArea(htmlInput, {
             mode: 'htmlmixed',
-            theme: 'monokai',
+            theme: 'duotone-dark',
             lineNumbers: true,
             autoCloseTags: true,
             matchBrackets: true
