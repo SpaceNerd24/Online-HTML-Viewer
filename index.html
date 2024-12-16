@@ -187,10 +187,10 @@
 
         window.onload = () => {
             const dataUrl = getQueryParam('data');
-            if (dataUrl) {
+            if (dataUrl && dataUrl.startsWith('data:text/html')) {
                 try {
-                    const decodedHtml = decodeURIComponent(atob(dataUrl));
-                    editor.setValue(decodedHtml);
+                    const htmlContent = decodeURIComponent(dataUrl.split(',')[1]);
+                    editor.setValue(htmlContent);
                 } catch (e) {
                     console.error('Invalid data URL:', e);
                 }
