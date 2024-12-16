@@ -154,8 +154,6 @@
             fullscreenOutput.srcdoc = htmlContent;
         });
 
-        editor.setValue('<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>Online HTML Viewer</title>\n</head>\n<body>\n    <h1>Hello, World!</h1>\n</body>\n</html>');
-
         function openFullscreen() {
             fullscreenOverlay.style.display = 'flex';
         }
@@ -181,6 +179,25 @@
             newWindow.document.write(htmlContent);
             newWindow.document.close();
         }
+
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        window.onload = () => {
+            const dataUrl = getQueryParam('data');
+            if (dataUrl) {
+                try {
+                    const decodedHtml = decodeURIComponent(atob(dataUrl));
+                    editor.setValue(decodedHtml);
+                } catch (e) {
+                    console.error('Invalid data URL:', e);
+                }
+            } else {
+                editor.setValue('<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>Online HTML Viewer</title>\n</head>\n<body>\n    <h1>Hello, World!</h1>\n</body>\n</html>');
+            }
+        };
     </script>
 </body>
 </html>
